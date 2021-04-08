@@ -1,2 +1,7 @@
-<h1>Salut les mecs</h1>
-{{stuff }}
+<div style="margin-left: 2%;"><h1>{{ stock.companyName}} ({{ stock.symbol }})</h1>
+<br/><br/>
+
+{{#each stock}}
+    {{@key}} | {{this}}</br>
+{{/each}}
+</div>
