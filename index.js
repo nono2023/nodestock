@@ -17,8 +17,8 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 // API key pk_fe1a2bf32e13467e98612f1048e56a6d
 // create call API function
-function call_api(finishedAPI){
-request('https://cloud.iexapis.com/stable/stock/fb/quote?token=pk_fe1a2bf32e13467e98612f1048e56a6d', { json: true}, (err, res, body) => {
+function call_api(finishedAPI, ticker){
+request('https://cloud.iexapis.com/stable/stock/' + ticker + '/quote?token=pk_fe1a2bf32e13467e98612f1048e56a6d', { json: true}, (err, res, body) => {
     if (err) { return console.log(err);}
     if (res.statusCode === 200){
         finishedAPI(body)
@@ -48,11 +48,11 @@ app.get('/', function(req, res) {
 //set handlebar index POST routes
 app.post('/', function(req, res) {
     call_api(function(doneAPI) {
-            posted_stuff = req.body.stock_ticker
+            //posted_stuff = req.body.stock_ticker
             res.render('home', {
             stock: doneAPI,
         });
-    });
+    }, req.body.stock_ticker);
 });
 
 // create about page route
