@@ -5,8 +5,15 @@ const app = express();
 const expressHandlebars = require('express-handlebars');
 const path = require('path');
 const request = require('request');
+const bodyParser = require('body-parser')
 
 const PORT = process.env.PORT || 5000;
+
+
+//use body-Parser middleware
+app.use(bodyParser.urlencoded({extended: false}));
+
+
 
 // API key pk_fe1a2bf32e13467e98612f1048e56a6d
 // create call API function
@@ -29,11 +36,21 @@ app.set('view engine', 'handlebars');
 
 const otherstuff = "hello there, this is other stuff!";
 
-//set handlebar routes
+//set handlebar index GET routes
 app.get('/', function(req, res) {
     call_api(function(doneAPI) {
             res.render('home', {
             stock: doneAPI
+        });
+    });
+});
+
+//set handlebar index POST routes
+app.post('/', function(req, res) {
+    call_api(function(doneAPI) {
+            posted_stuff = req.body.stock_ticker
+            res.render('home', {
+            stock: doneAPI,
         });
     });
 });
