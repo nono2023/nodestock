@@ -42,7 +42,7 @@ app.get('/', function(req, res) {
             res.render('home', {
             stock: doneAPI
         });
-    });
+    }, "tsla");
 });
 
 //set handlebar index POST routes
